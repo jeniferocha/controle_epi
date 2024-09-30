@@ -1,0 +1,65 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <span class="fs-4 fw-semibold text-white">Home</span>
+    <a class="navbar-brand" href="#">
+      <span class="fs-5 fw-semibold me-2">Nome</span>
+      <img src="{% static 'img/avatar-mulher.jpg' %}" alt="Avatar" style="width: 40px; border-radius: 50%;" class="rounded-pill" />
+    </a>
+  </div>
+</nav>
+
+<div class="flex-shrink-0 p-3 bg-white" style="width: 280px">
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#home-collapse"
+        aria-expanded="false"
+      >
+        Equipamento
+      </button>
+      <div class="collapse" id="home-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Cadastrar equipamento</a></li>
+          <li><a href="#" class="link-dark rounded">Editar equipamento</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse"
+        aria-expanded="false"
+      >
+        Controle EPI
+      </button>
+      <div class="collapse" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Registrar ação</a></li>
+          <li><a href="#" class="link-dark rounded">Relatórios</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#orders-collapse"
+        aria-expanded="false"
+      >
+        Colaborador
+      </button>
+      <div class="collapse" id="orders-collapse" >
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Cadastrar colaborador</a></li>
+          <li><a href="#" class="link-dark rounded">Relatórios</a></li>
+          <li><a href="#" class="link-dark rounded">Editar colaborador</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
