@@ -4,13 +4,6 @@
 
 {% block content %}
 
-<script>
-    function setDeleteUrl(url) {
-      document.getElementById('confirmDeleteBtn').setAttribute('href', url);
-    }
-  </script>
-  
-
 <div class="container justify-content-center mt-2">
   <form action="{% url 'listar_equipamento' %}" method="get">
     <div class="form-group">
@@ -31,7 +24,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteLabel">Confirmar Exclusão</h5>
+          <h5 class="modal-title" id="confirmDeleteLabel">Remover equipamento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -45,6 +38,11 @@
     </div>
   </div>
   
+<script>
+    function setDeleteUrl(url) {
+      document.getElementById('confirmDeleteBtn').setAttribute('href', url);
+    }
+</script>
 
 <div class="container mt-5">
   <h1 class="text-start mb-4" >Lista de equipamentos</h1>
