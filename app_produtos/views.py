@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.urls import reverse
 from .models import CadastrarEquipamento, CadastrarColaborador, RegistrarAcao
 
 def index(request):
@@ -58,7 +60,8 @@ def editar_equipamento(request, id):
             equipamento.nome_equipamento = nome_equipamento
             equipamento.cod_equipamento = cod_equipamento
             equipamento.save()    
-            return redirect(listar_equipamento)
+            messages.success(request, 'Equipamento atualizado com sucesso!')
+            return redirect(reverse('listar_equipamento'))
         else:            
             message_type = 'error'
             message_content = 'Todos os campos são obrigatórios!'    
@@ -69,10 +72,14 @@ def editar_equipamento(request, id):
         "message_content": message_content
     })
 
+
 def deletar_equipamento(request, id):
     equipamento = CadastrarEquipamento.objects.get(id=id)
     equipamento.delete()
-    return redirect(listar_equipamento)  
+    messages.success(request, 'Equipamento excluído com sucesso!')
+
+    return redirect(reverse('listar_equipamento'))
+  
 
 
 def cadastrar_colaborador(request):
@@ -97,6 +104,7 @@ def cadastrar_colaborador(request):
             # Mensagem de sucesso
             message_type = 'success'
             message_content = 'Colaborador cadastrado com sucesso!'
+            request.session['ultimo_nome'] = nome_colaborador
         else:
             # Mensagem de erro se os campos não forem preenchidos
             message_type = 'error'
@@ -105,7 +113,8 @@ def cadastrar_colaborador(request):
     return render(request, 'app_produtos/globals/cadastrarColaborador.html', {
         "colaborador": colaborador,
         "message_type": message_type,
-        "message_content": message_content
+        "message_content": message_content,
+        
     })
 
 
@@ -137,7 +146,9 @@ def editar_colaborador(request, id):
             colaborador.cargo = cargo
             colaborador.setor = setor
             colaborador.save()    
-            return redirect(listar_colaborador)
+            messages.success(request, 'Colaborador atualizado com sucesso!')
+            return redirect(reverse('listar_colaborador'))
+           
         else:            
             message_type = 'error'
             message_content = 'Todos os campos são obrigatórios!'    
@@ -148,10 +159,14 @@ def editar_colaborador(request, id):
         "message_content": message_content
     }) 
     
-def deletar_colaborador(request, id):
+def deletar_colaborador(request, id):   
     colaborador = CadastrarColaborador.objects.get(id=id)
     colaborador.delete()
-    return redirect(listar_colaborador)
+    messages.success(request, 'Colaborador excluído com sucesso!')
+       
+    return redirect(reverse('listar_colaborador'))
+   
+   
 
 
 def relatorio_colaborador(request):
@@ -167,10 +182,7 @@ def relatorio_colaborador(request):
         "nome_colaborador": nome_colaborador
     })
 
-    
-
-
-
+   
 def registrar_acao(request):
     acao = {}
     message_type = None

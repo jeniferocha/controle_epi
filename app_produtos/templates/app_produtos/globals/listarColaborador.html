@@ -4,6 +4,15 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
 <div class="container justify-content-center mt-2">
   <form action="{% url 'listar_colaborador' %}" method="get" >
     <div class="form-group">
@@ -66,7 +75,7 @@
         <td>{{ item.cargo }}</td>
         <td>{{ item.setor }}</td>
         <td>
-            <a href="/editarColaborador/{{ item.id }}" class="btn btn-warning">Editar</a>
+            <a href="/editarColaborador/{{ item.id }}" class="btn btn-warning ">Editar</a>
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('/deletarColaborador/{{ item.id }}')">Deletar</button>
         </td>
       </tr>

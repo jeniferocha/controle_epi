@@ -1,6 +1,6 @@
 {% load static %}
 
-<header class="py-3 mb-3 border-bottom" style="grid-area: header">
+<header class="py-3 mb-3 border-bottom" style="grid-area: header; background-color: #f1f1f1">
   <div class="container-fluid d-flex gap-3 align-items-center">
     <div class="container-fluid ps-4">
       <a class="navbar-brand" href="/">
@@ -16,6 +16,9 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
+          {% if request.session.ultimo_nome %}
+          <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>
+          {% endif %}
           <img src="{% static 'img/avatar-mulher.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle" />
         </a>
         <ul class="dropdown-menu text-small shadow">

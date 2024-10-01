@@ -5,14 +5,14 @@
 {% block content %}
 
 <div class="container justify-content-center mt-2">
-  <form action="{% url 'listar_colaborador' %}" method="get" >
+  <form action="{% url 'relatorio_colaborador' %}" method="get" >
     <div class="form-group">
       <label class="form-label" for="nome_colaborador">Nome do colaborador:</label>
       <input class="form-control w-50" type="text" name="nome_colaborador" id="nome_colaborador" value="{{ nome_colaborador|default:'' }}"/>
     </div>
     <div class="d-flex mt-2" style="gap: 10px;">
         <button class="w-10 btn btn-primary btn-md"  type="submit">Pesquisar</button>        
-        <a class="w-10 btn btn-secondary btn-md" href="{% url 'listar_colaborador' %}">Limpar Filtro</a>
+        <a class="w-10 btn btn-secondary btn-md" href="{% url 'relatorio_colaborador' %}">Limpar Filtro</a>
       </div>
   </form>
 </div>
@@ -61,11 +61,7 @@
         <td>{{ item.id }}</td>
         <td>{{ item.nome_colaborador }}</td>
         <td>{{ item.data_emprestimo }}</td>
-        <td>{{ item.nome_equipamento }}</td>      
-        <!-- <td>
-            <a href="/editarColaborador/{{ item.id }}" class="btn btn-warning">Editar</a>
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('/deletarColaborador/{{ item.id }}')">Deletar</button>
-        </td> -->
+        <td>{{ item.nome_equipamento }}</td>
       </tr>
       {% endfor %}
     </tbody>
