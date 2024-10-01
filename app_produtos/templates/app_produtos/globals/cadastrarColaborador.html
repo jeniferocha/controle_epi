@@ -13,27 +13,31 @@
     <div class="col-7">
         <label for="nome_colaborador" class="form-label">Nome</label>
         <input type="text" class="form-control" name="nome_colaborador" id="nome_colaborador" />
-        <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
+        <div class="invalid-feedback">Valid name is required.</div>
     </div>  
 
     <div class="col-sm-7">
       <label for="cpf" class="form-label">CPF</label>
-      <input type="number" class="form-control" name="cpf" id="cpf" required="" />
-      <div class="invalid-feedback">Valid first name is required.</div>
+      <input type="cpf" class="form-control" name="cpf" id="cpf" required="" />
+      <div class="invalid-feedback">Valid cpf is required.</div>
     </div>
     
     <div class="col-7">
         <label for="cargo" class="form-label">Cargo</label>
         <input type="text" class="form-control" name="cargo" id="cargo" />
-        <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
-      </div>  
-
-    <div class="col-7">
-      <label for="setor" class="form-label">Setor</label>
-      <input type="text" class="form-control" name="setor" id="setor" />
-      <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
+        <div class="invalid-feedback">Valid cargo is required.</div>
     </div>  
 
+    <div class="col-7">
+        <label for="setor" class="form-label">Setor</label>
+        <select class="form-select" id="setor" name="setor" required>
+            <option selected disabled value="">Escolha...</option>
+            <option value="Construção Civil">Construção Civil</option>
+            <option value="Limpeza">Limpeza</option>
+            <option value="Eletricista">Eletricista</option>
+            <option value="Saúde">Saúde</option>             
+        </select>        
+    </div>
 
   <button class="w-50 btn btn-primary btn-lg" type="submit">Salvar</button>
   

@@ -1,0 +1,121 @@
+{% extends "app_produtos/index.html" %} 
+
+{% block title %}Registrar Ação{% endblock title %} 
+
+{% block content %}
+
+
+<form class="needs-validation" method="post" novalidate>
+    {% csrf_token %}
+  <div class="row g-2" style="gap: 10px; padding-top: 5px;">
+
+    <div class="col-7">
+        <label for="nome_colaborador" class="form-label">Nome colaborador</label>
+        <input type="text" class="form-control" name="nome_colaborador" id="nome_colaborador" />
+        <div class="invalid-feedback">Valid name is required.</div>
+    </div>  
+
+    <div class="col-7">
+        <label for="nome_equipamento" class="form-label">Equipamento</label>
+        <input type="text" class="form-control" name="nome_equipamento" id="nome_equipamento" />
+        <div class="invalid-feedback">Valid equipamento is required.</div>
+    </div>  
+    
+    <div class="col-7">
+        <label for="data_emprestimo" class="form-label">Data emprestimo</label>
+        <input type="date" class="form-control" name="data_emprestimo" id="data_emprestimo" />
+        <div class="invalid-feedback">Valid data is required.</div>
+    </div>  
+
+    <div class="col-7">
+        <label for="data_prevista_devolucao" class="form-label">Data prevista devolução</label>
+        <input type="date" class="form-control" name="data_prevista_devolucao" id="data_prevista_devolucao" />
+        <div class="invalid-feedback">Valid data is required.</div>
+    </div>  
+
+    <div class="col-7">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status" required>
+            <option selected disabled value="">Escolha...</option>
+            <option value="Emprestado">Emprestado</option>
+            <option value="Em uso">Em uso</option>
+            <option value="Fornecido">Fornecido</option>
+            <option value="Devolvido">Devolvido</option>             
+            <option value="Danificado">Danificado</option>             
+            <option value="Perdido">Perdido</option>             
+        </select>        
+    </div>
+
+    <div class="col-7">
+        <label for="condicoes" class="form-label">Condições do equipamento no emprestimo</label>
+        <input type="text" class="form-control" name="condicoes" id="condicoes" />
+        <div class="invalid-feedback">Valid equipamento is required.</div>
+    </div> 
+
+    <!-- <div class="col-7">
+        <label for="data_devolucao" class="form-label">Data prevista devolução</label>
+        <input type="date" class="form-control" name="data_devolucao" id="data_devolucao" />
+        <div class="invalid-feedback">Valid data is required.</div>
+    </div>
+
+    
+    <div class="col-7">
+        <label for="observacao" class="form-label">Observação na devolução/perda</label>
+        <input type="text" class="form-control" name="observacao" id="observacao" />
+        <div class="invalid-feedback">Valid equipamento is required.</div>
+    </div>  -->
+
+  <button class="w-50 btn btn-primary btn-lg" type="submit">Salvar</button>
+  
+<!-- Modal de Notificação -->
+  <script>
+    // Função para exibir o modal com mensagem de sucesso ou erro
+    function showNotificationModal(success, message) {
+      var modalTitle = document.getElementById('notificationLabel');
+      var modalMessage = document.getElementById('notificationMessage');
+  
+      if (success) {
+        modalTitle.textContent = 'Sucesso!';
+        modalMessage.textContent = message;
+        modalTitle.classList.add('text-success');
+      } else {
+        modalTitle.textContent = 'Erro!';
+        modalMessage.textContent = message;
+        modalTitle.classList.add('text-danger');
+      }
+  
+      // Exibe o modal
+      var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+      notificationModal.show();
+    }
+  </script>
+   
+  
+  <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="notificationLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="notificationMessage">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if message_type and message_content %}
+    <script>
+      var success = "{{ message_type }}" === "success";
+      var message = "{{ message_content }}";
+      showNotificationModal(success, message);
+    </script>
+    {% endif %}
+    
+
+</form>
+
+{% endblock content %}

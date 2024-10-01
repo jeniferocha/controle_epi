@@ -1,0 +1,80 @@
+{% extends "app_produtos/index.html" %}
+
+{% block title %}Relatório Colaborador{% endblock title %} 
+
+{% block content %}
+
+<div class="container justify-content-center mt-2">
+  <form action="{% url 'listar_colaborador' %}" method="get" >
+    <div class="form-group">
+      <label class="form-label" for="nome_colaborador">Nome do colaborador:</label>
+      <input class="form-control w-50" type="text" name="nome_colaborador" id="nome_colaborador" value="{{ nome_colaborador|default:'' }}"/>
+    </div>
+    <div class="d-flex mt-2" style="gap: 10px;">
+        <button class="w-10 btn btn-primary btn-md"  type="submit">Pesquisar</button>        
+        <a class="w-10 btn btn-secondary btn-md" href="{% url 'listar_colaborador' %}">Limpar Filtro</a>
+      </div>
+  </form>
+</div>
+
+{% if registro_acao %}
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteLabel">Remover colaborador</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Você tem certeza que deseja excluir este colaborador?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Deletar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<script>
+    function setDeleteUrl(url) {
+      document.getElementById('confirmDeleteBtn').setAttribute('href', url);
+    }
+</script>
+
+<div class="container mt-5">
+  <h1 class="text-start mb-4" >Colaboradores e equipamentos</h1>
+  <table class="table table-striped" style="width: 80%;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Colaborador</th>
+        <th>Data emprestimo</th>
+        <th>Equipamento</th>    
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in registro_acao %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.nome_colaborador }}</td>
+        <td>{{ item.data_emprestimo }}</td>
+        <td>{{ item.nome_equipamento }}</td>      
+        <!-- <td>
+            <a href="/editarColaborador/{{ item.id }}" class="btn btn-warning">Editar</a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('/deletarColaborador/{{ item.id }}')">Deletar</button>
+        </td> -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+
+<div class="container mt-3">
+  <p class="text-center h3">Nenhum colaborador encontrado</p>
+</div>
+
+{% endif %} {% endblock content %}

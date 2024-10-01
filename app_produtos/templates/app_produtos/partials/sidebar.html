@@ -35,7 +35,7 @@
       </button>
       <div class="collapse" id="controle-collapse">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Registrar ação</a></li>
+          <li><a href="{% url 'registrar_acao' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Registrar ação</a></li>
           <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Relatórios</a></li>
         </ul>
       </div>
@@ -55,9 +55,9 @@
             <a href="{% url 'cadastrar_colaborador' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cadastrar colaborador</a>
           </li>
           <li>
-            <a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Editar colaborador</a>
+            <a href="{% url 'listar_colaborador' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Editar colaborador</a>
           </li>
-          <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Relatórios</a></li>
+          <li><a href="{% url 'relatorio_colaborador' %}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Relatórios</a></li>
         </ul>
       </div>
     </li>
