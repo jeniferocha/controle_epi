@@ -4,6 +4,13 @@
 
 {% block content %}
 
+<script>
+    function setDeleteUrl(url) {
+      document.getElementById('confirmDeleteBtn').setAttribute('href', url);
+    }
+  </script>
+  
+
 <div class="container justify-content-center mt-2">
   <form action="{% url 'listar_equipamento' %}" method="get">
     <div class="form-group">
@@ -18,6 +25,26 @@
 </div>
 
 {% if lista_equipamento %}
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteLabel">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Você tem certeza que deseja excluir este equipamento?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Deletar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 <div class="container mt-5">
   <h1 class="text-start mb-4" >Lista de equipamentos</h1>
@@ -38,7 +65,7 @@
         <td>{{ item.nome_equipamento }}</td>
         <td>
             <a href="/editarEquipamento/{{ item.id }}" class="btn btn-warning">Editar</a>
-            <a href="/deletarEquipamento/{{ item.id }}" class="btn btn-danger">Deletar</a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('/deletarEquipamento/{{ item.id }}')">Deletar</button>
         </td>
       </tr>
       {% endfor %}
