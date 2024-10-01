@@ -1,11 +1,31 @@
-{% extends "app_produtos/index.html" %}
 
+{% extends "app_produtos/index.html" %}
 
 {% block title %}Editar Equipamento{% endblock title %}
 
 {% block content %}
 
-<h1>Editar Equipamento</h1>
+<h1>Atualizar equipamento</h1>
 
+  {% if erro %}
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+    </div>
+  {% endif %}
+  <form action={% url "editar_equipamento" item.id %} method="post" class="needs-validation">
+      {% csrf_token %}
+    <div class="row g-1" style="gap: 10px; padding-top: 20px;">    
+        <div class="col-sm-7">
+        <label for="cod_equipamento" class="form-label">Código do Equipamento</label>
+        <input type="number" class="form-control" name="cod_equipamento" id="cod_equipamento" value="{{ item.cod_equipamento }}" />
+        </div>
+        <div class="col-7">
+        <label for="nome_equipamento" class="form-label">Nome do equipamento</label>
+        <input type="text" class="form-control" name="nome_equipamento" id="nome_equipamento" value="{{ item.nome_equipamento }}"/>
+        </div>
+        <button class="w-50 btn btn-primary btn-lg" type="submit">Salvar</button>
+    </div>
+</form>   
 
 {% endblock content %}

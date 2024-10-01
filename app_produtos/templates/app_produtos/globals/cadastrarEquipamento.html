@@ -1,6 +1,6 @@
 {% extends "app_produtos/index.html" %} {% block title %}Cadastrar Equipamento{% endblock title %} {% block content %}
 
-<h1>Cadastrar Equipamento</h1>
+<h1>Cadastrar equipamento</h1>
 
 <form class="needs-validation" method="post">
     {% csrf_token %}
@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-7">
-      <label for="nome_equipamento" class="form-label">Nome equipamento</label>
+      <label for="nome_equipamento" class="form-label">Nome do equipamento</label>
       <input type="text" class="form-control" name="nome_equipamento" id="nome_equipamento" />
       <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
     </div>   

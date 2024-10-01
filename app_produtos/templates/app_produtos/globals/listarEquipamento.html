@@ -1,0 +1,54 @@
+{% extends "app_produtos/index.html" %}
+
+{% block title %}Listar Equipamento{% endblock title %} 
+
+{% block content %}
+
+<div class="container justify-content-center mt-2">
+  <form action="{% url 'listar_equipamento' %}" method="get">
+    <div class="form-group">
+      <label class="form-label" for="nome_equipamento">Nome do equipamento:</label>
+      <input class="form-control w-50" type="text" name="nome_equipamento" id="nome_equipamento" value="{{ nome_equipamento|default:'' }}"/>
+    </div>
+    <div class="d-flex mt-2" style="gap: 10px;">
+        <button class="w-10 btn btn-primary btn-md"  type="submit">Pesquisar</button>        
+        <a class="w-10 btn btn-secondary btn-md" href="{% url 'listar_equipamento' %}">Limpar Filtro</a>
+      </div>
+  </form>
+</div>
+
+{% if lista_equipamento %}
+
+<div class="container mt-5">
+  <h1 class="text-start mb-4" >Lista de equipamentos</h1>
+  <table class="table table-striped" style="width: 60%;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in lista_equipamento %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.cod_equipamento }}</td>
+        <td>{{ item.nome_equipamento }}</td>
+        <td>
+            <a href="/editarEquipamento/{{ item.id }}" class="btn btn-warning">Editar</a>
+            <a href="/deletarEquipamento/{{ item.id }}" class="btn btn-danger">Deletar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+
+<div class="container mt-3">
+  <p class="text-center h3">Nenhum equipamento encontrado</p>
+</div>
+
+{% endif %} {% endblock content %}
