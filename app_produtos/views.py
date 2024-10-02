@@ -219,3 +219,10 @@ def registrar_acao(request):
         "message_type": message_type,
         "message_content": message_content
     })
+
+
+def sair(request):
+    # Remove o nome do último colaborador da sessão
+    del request.session['ultimo_nome']
+    # Redireciona para a página inicial ou de login
+    return redirect('home')  

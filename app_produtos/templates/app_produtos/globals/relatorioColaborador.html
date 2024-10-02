@@ -51,8 +51,11 @@
       <tr>
         <th>Id</th>
         <th>Colaborador</th>
+        <th>Equipamento</th>  
         <th>Data emprestimo</th>
-        <th>Equipamento</th>    
+        <th>Data prevista devolução</th>    
+        <th>Status</th>    
+
       </tr>
     </thead>
     <tbody>
@@ -60,8 +63,11 @@
       <tr>
         <td>{{ item.id }}</td>
         <td>{{ item.nome_colaborador }}</td>
-        <td>{{ item.data_emprestimo }}</td>
         <td>{{ item.nome_equipamento }}</td>
+        <td>{{ item.data_emprestimo }}</td>
+        <td>{{ item.data_prevista_devolucao }}</td>
+        <td>{{ item.status }}</td>
+
       </tr>
       {% endfor %}
     </tbody>

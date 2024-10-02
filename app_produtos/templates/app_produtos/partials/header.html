@@ -19,13 +19,13 @@
           {% if request.session.ultimo_nome %}
           <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>
           {% endif %}
-          <img src="{% static 'img/avatar-mulher.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle" />
+          <img src="{% static 'img/avatar-do-usuario.png' %}" alt="mdo" width="32" height="32" class="rounded-circle" />
         </a>
         <ul class="dropdown-menu text-small shadow">
           <li><a class="dropdown-item" href="#">Configurações</a></li>
           <li><a class="dropdown-item" href="#">Perfil</a></li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Sair</a></li>
+          <li><a class="dropdown-item" href="{% url 'sair' %}">Sair</a></li>
         </ul>
       </div>
     </div>

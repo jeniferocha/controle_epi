@@ -34,4 +34,6 @@ class ColaboradorEquipamento(models.Model):
     colaborador_id = models.ForeignKey(CadastrarColaborador, on_delete=models.CASCADE)
     equipamento_id = models.ForeignKey(CadastrarEquipamento, on_delete=models.CASCADE)
     data_emprestimo_id = models.ForeignKey(RegistrarAcao, on_delete=models.CASCADE)
+
+
    
