@@ -170,12 +170,10 @@ def deletar_colaborador(request, id):
 
 
 def relatorio_colaborador(request):
-    values = RegistrarAcao.objects.all()
-    nome_colaborador = request.GET.get('nome_colaborador')
-    nome_equipamento = request.GET.get('nome_equipamento')
-    data_emprestimo = request.GET.get('data_emprestimo')
+    values = RegistrarAcao.objects.all()    
+    nome_colaborador = request.GET.get('nome_colaborador')    
     if nome_colaborador:
-        values = values.filter(nome_colaborador__icontains=nome_colaborador)
+        values = values.filter(colaborador_id__nome_colaborador__icontains=nome_colaborador)
 
     return render(request, 'app_produtos/globals/relatorioColaborador.html', {
         "registro_acao": values,
@@ -188,18 +186,25 @@ def registrar_acao(request):
     message_type = None
     message_content = None
 
+    colaboradores = CadastrarColaborador.objects.all()
+    equipamentos = CadastrarEquipamento.objects.all()
+
     if request.method == 'POST':
-        nome_colaborador = request.POST.get('nome_colaborador')    
-        nome_equipamento = request.POST.get('nome_equipamento')
+        colaborador_id = request.POST.get('colaborador_id')    
+        equipamento_id = request.POST.get('equipamento_id')
         data_emprestimo = request.POST.get('data_emprestimo')
         data_prevista_devolucao = request.POST.get('data_prevista_devolucao')
         status = request.POST.get('status')
         condicoes = request.POST.get('condicoes')
 
-        if nome_colaborador and nome_equipamento and data_emprestimo and data_prevista_devolucao and status and condicoes:  
+        if colaborador_id and equipamento_id and data_emprestimo and data_prevista_devolucao and status and condicoes:  
+            
+            colaborador = CadastrarColaborador.objects.get(id=colaborador_id)
+            equipamento = CadastrarEquipamento.objects.get(id=equipamento_id)
+            
             acao = {
-                "nome_colaborador": nome_colaborador,
-                "nome_equipamento": nome_equipamento,
+                "colaborador_id": colaborador,
+                "equipamento_id": equipamento,
                 "data_emprestimo": data_emprestimo,
                 "data_prevista_devolucao": data_prevista_devolucao,
                 "status": status,
@@ -209,15 +214,20 @@ def registrar_acao(request):
             # Mensagem de sucesso
             message_type = 'success'
             message_content = 'Ação registrada com sucesso!'
+            
         else:
             # Mensagem de erro se os campos não forem preenchidos
             message_type = 'error'
             message_content = 'Ação não foi registrada. Preencha todos os campos!'
 
+
+
     return render(request, 'app_produtos/globals/registrarAcao.html', {
         "acao": acao,
         "message_type": message_type,
-        "message_content": message_content
+        "message_content": message_content,
+        "colaboradores": colaboradores,
+        "equipamentos": equipamentos
     })
 
 

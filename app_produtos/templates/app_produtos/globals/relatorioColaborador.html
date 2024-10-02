@@ -62,8 +62,8 @@
       {% for item in registro_acao %}
       <tr>
         <td>{{ item.id }}</td>
-        <td>{{ item.nome_colaborador }}</td>
-        <td>{{ item.nome_equipamento }}</td>
+        <td>{{ item.colaborador_id.nome_colaborador }}</td>
+        <td>{{ item.equipamento_id.nome_equipamento }}</td>
         <td>{{ item.data_emprestimo }}</td>
         <td>{{ item.data_prevista_devolucao }}</td>
         <td>{{ item.status }}</td>

@@ -10,16 +10,26 @@
   <div class="row g-2" style="gap: 10px; padding-top: 5px;">
 
     <div class="col-7">
-        <label for="nome_colaborador" class="form-label">Nome colaborador</label>
-        <input type="text" class="form-control" name="nome_colaborador" id="nome_colaborador" />
-        <div class="invalid-feedback">Valid name is required.</div>
+      <label for="colaborador_id" class="form-label">Nome colaborador</label>
+      <select class="form-select" name="colaborador_id" id="colaborador_id" required>
+          <option selected disabled value="">Escolha um colaborador...</option>
+          {% for colaborador in colaboradores %}
+              <option value="{{ colaborador.id }}">{{ colaborador.nome_colaborador }}</option>
+          {% endfor %}
+      </select>
+      <div class="invalid-feedback">Um colaborador válido é necessário.</div>
     </div>  
 
     <div class="col-7">
-        <label for="nome_equipamento" class="form-label">Equipamento</label>
-        <input type="text" class="form-control" name="nome_equipamento" id="nome_equipamento" />
-        <div class="invalid-feedback">Valid equipamento is required.</div>
-    </div>  
+      <label for="equipamento_id" class="form-label">Equipamento</label>
+      <select class="form-select" name="equipamento_id" id="equipamento_id" required>
+          <option selected disabled value="">Escolha um equipamento...</option>
+          {% for equipamento in equipamentos %}
+              <option value="{{ equipamento.id }}">{{ equipamento.nome_equipamento }}</option>
+          {% endfor %}
+      </select>
+      <div class="invalid-feedback">Um equipamento válido é necessário.</div>
+    </div>   
     
     <div class="col-7">
         <label for="data_emprestimo" class="form-label">Data emprestimo</label>
