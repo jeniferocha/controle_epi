@@ -194,27 +194,25 @@ def registrar_acao(request):
         data_prevista_devolucao = request.POST.get('data_prevista_devolucao')
         status = request.POST.get('status')
         condicoes = request.POST.get('condicoes')
+        data_devolucao = request.POST.get('data_devolucao') if status in ["Danificado", "Devolvido", "Perdido"] else None
+        observacao = request.POST.get('observacao') if status in ["Danificado", "Devolvido", "Perdido"] else None
 
-        if colaborador_id and equipamento_id and data_emprestimo and data_prevista_devolucao and status and condicoes:  
-            
-            colaborador = CadastrarColaborador.objects.get(id=colaborador_id)
-            equipamento = CadastrarEquipamento.objects.get(id=equipamento_id)
-            
+        if colaborador_id and equipamento_id and data_emprestimo and data_prevista_devolucao and status and condicoes:
             acao = {
-                "colaborador_id": colaborador,
-                "equipamento_id": equipamento,
+                "colaborador_id_id": colaborador_id,  
+                "equipamento_id_id": equipamento_id,
                 "data_emprestimo": data_emprestimo,
                 "data_prevista_devolucao": data_prevista_devolucao,
                 "status": status,
-                "condicoes": condicoes
+                "condicoes": condicoes,
+                "data_devolucao": data_devolucao,
+                "observacao": observacao
             }
-            RegistrarAcao.objects.create(**acao)
-            # Mensagem de sucesso
+            RegistrarAcao.objects.create(**acao)            
             message_type = 'success'
             message_content = 'Ação registrada com sucesso!'
             
-        else:
-            # Mensagem de erro se os campos não forem preenchidos
+        else:            
             message_type = 'error'
             message_content = 'Ação não foi registrada. Preencha todos os campos!'
 

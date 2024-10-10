@@ -25,10 +25,21 @@ class RegistrarAcao(models.Model):
     data_emprestimo = models.DateField()
     data_prevista_devolucao = models.DateField()
     status = models.CharField(max_length=100)
-    condicoes = models.CharField(max_length=100)
+    condicoes = models.CharField(max_length=100)  
+    data_devolucao = models.DateField(null=True, blank=True)
+    observacao = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"Colaborador: {self.colaborador_id} - Equipamento: {self.equipamento_id} - Data_emprestimo: {self.data_emprestimo} - Data_prevista_devolução: {self.data_prevista_devolucao} - Status: {self.status} - Condições: {self.condicoes}"
+        base_str = f"Colaborador: {self.colaborador_id} - Equipamento: {self.equipamento_id} - Data_emprestimo: {self.data_emprestimo} - Data_prevista_devolução: {self.data_prevista_devolucao} - Status: {self.status} - Condições: {self.condicoes}"
+        
+        # Adiciona 'data_devolucao' e 'observacao' se existirem
+        if self.data_devolucao:
+            base_str += f" - Data_devolução: {self.data_devolucao}"
+        if self.observacao:
+            base_str += f" - Observação: {self.observacao}"
+        
+        return base_str
+
 
 
 

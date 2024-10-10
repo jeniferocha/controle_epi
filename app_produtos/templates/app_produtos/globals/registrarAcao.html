@@ -44,16 +44,16 @@
     </div>  
 
     <div class="col-7">
-        <label for="status" class="form-label">Status</label>
-        <select class="form-select" id="status" name="status" required>
-            <option selected disabled value="">Escolha...</option>
-            <option value="Emprestado">Emprestado</option>
-            <option value="Em uso">Em uso</option>
-            <option value="Fornecido">Fornecido</option>
-            <option value="Devolvido">Devolvido</option>             
-            <option value="Danificado">Danificado</option>             
-            <option value="Perdido">Perdido</option>             
-        </select>        
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" id="status" name="status" required onchange="toggleDevolucaoFields()">
+          <option selected disabled value="">Escolha...</option>
+          <option value="Emprestado">Emprestado</option>
+          <option value="Em uso">Em uso</option>
+          <option value="Fornecido">Fornecido</option>
+          <option value="Devolvido">Devolvido</option>             
+          <option value="Danificado">Danificado</option>             
+          <option value="Perdido">Perdido</option>             
+      </select>        
     </div>
 
     <div class="col-7">
@@ -62,21 +62,36 @@
         <div class="invalid-feedback">Valid equipamento is required.</div>
     </div> 
 
-    <!-- <div class="col-7">
-        <label for="data_devolucao" class="form-label">Data prevista devolução</label>
-        <input type="date" class="form-control" name="data_devolucao" id="data_devolucao" />
-        <div class="invalid-feedback">Valid data is required.</div>
+    <div class="col-7" id="dataDevolucaoField" style="display: none;">
+      <label for="data_devolucao" class="form-label">Data de devolução</label>
+      <input type="date" class="form-control" name="data_devolucao" id="data_devolucao" />
+      <div class="invalid-feedback">Data válida é necessária.</div>
     </div>
 
-    
-    <div class="col-7">
+    <div class="col-7" id="observacaoField" style="display: none;">
         <label for="observacao" class="form-label">Observação na devolução/perda</label>
         <input type="text" class="form-control" name="observacao" id="observacao" />
-        <div class="invalid-feedback">Valid equipamento is required.</div>
-    </div>  -->
+        <div class="invalid-feedback">Observação válida é necessária.</div>
+    </div>
 
   <button class="w-50 btn btn-primary btn-lg" type="submit">Salvar</button>
   
+  <script>
+    function toggleDevolucaoFields() {
+      var status = document.getElementById("status").value;
+      var dataDevolucaoField = document.getElementById("dataDevolucaoField");
+      var observacaoField = document.getElementById("observacaoField");
+  
+      if (status === "Danificado" || status === "Devolvido" || status === "Perdido") {
+        dataDevolucaoField.style.display = "block";
+        observacaoField.style.display = "block";
+      } else {
+        dataDevolucaoField.style.display = "none";
+        observacaoField.style.display = "none";
+      }
+    }
+  </script>
+
 <!-- Modal de Notificação -->
   <script>
     // Função para exibir o modal com mensagem de sucesso ou erro
@@ -127,5 +142,7 @@
     
 
 </form>
+
+
 
 {% endblock content %}
