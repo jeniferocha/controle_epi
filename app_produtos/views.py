@@ -166,8 +166,6 @@ def deletar_colaborador(request, id):
        
     return redirect(reverse('listar_colaborador'))
    
-   
-
 
 def relatorio_colaborador(request):
     values = RegistrarAcao.objects.all()    
