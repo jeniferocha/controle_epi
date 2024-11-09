@@ -107,7 +107,6 @@ def cadastrar_colaborador(request):
             # Mensagem de sucesso
             message_type = 'success'
             message_content = 'Colaborador cadastrado com sucesso!'
-            request.session['ultimo_nome'] = nome_colaborador
         else:
             # Mensagem de erro se os campos não forem preenchidos
             message_type = 'error'
@@ -253,12 +252,13 @@ def logout_request(request):
 def cadastrar_login(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
-        username = request.POST.get('username')
         email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
         if nome and username and email and password:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.first_name = nome  # Salva o nome do usuário
+            request.session['ultimo_nome'] = nome
             user.save()
             return redirect('login')  # Redireciona para a página de login
     return render(request, 'app_produtos/globals/cadastrarLogin.html')
