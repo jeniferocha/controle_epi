@@ -1,0 +1,26 @@
+{% extends "app_produtos/index.html" %}
+{% block title %}Cadastro{% endblock title %}
+
+{% block content %}
+<h1>Cadastro</h1>
+<form action="{% url 'cadastrar_login' %}" method="post">
+    {% csrf_token %}
+    <div class="col-sm-7">
+        <label for="nome" class="form-label">Nome:</label>
+        <input type="text" name="nome" id="nome" class="form-control" required>
+    </div>
+    <div class="col-sm-7">
+        <label for="username" class="form-label">Usuário:</label>
+        <input type="text" name="username" id="username" class="form-control" required>
+    </div>
+    <div class="col-sm-7">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+    <div class="col-sm-7">
+        <label for="password" class="form-label">Senha:</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 10px">Cadastrar</button>
+</form>
+{% endblock %}

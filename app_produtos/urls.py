@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="home"), 
-    path("sair/", views.sair, name="sair"),
+     path("login/", views.login_request, name="login"),
+    path("logout/", views.logout_request, name="logout"),
+    path("cadastrarLogin/", views.cadastrar_login, name="cadastrar_login"),
     path("cadastrarEquipamento/", views.cadastrar_equipamento, name="cadastrar_equipamento"), 
     path("listarEquipamento/", views.listar_equipamento, name="listar_equipamento"),
     path("editarEquipamento/<int:id>", views.editar_equipamento, name="editar_equipamento"),

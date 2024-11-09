@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import CadastrarEquipamento, CadastrarColaborador, RegistrarAcao
+
 
 def index(request):
     return render(request, 'app_produtos/globals/home.html')
@@ -226,9 +229,36 @@ def registrar_acao(request):
         "equipamentos": equipamentos
     })
 
+def login_request(request):
+    message = ""
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            request.session['ultimo_nome'] = user.last_name  # Armazena o último nome na sessão
+            return redirect('home')  # Redireciona para a página inicial
+        else:
+            message = "Usuário ou senha inválidos"
+    return render(request, 'app_produtos/globals/login.html', {"message": message})
 
-def sair(request):
-    # Remove o nome do último colaborador da sessão
-    del request.session['ultimo_nome']
-    # Redireciona para a página inicial ou de login
-    return redirect('home')  
+# View de Logout
+def logout_request(request):
+    logout(request)
+    request.session.flush()  # Limpa a sessão
+    return redirect('login')  # Redireciona para a página de login
+
+# View de Cadastro
+def cadastrar_login(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        if nome and username and email and password:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.first_name = nome  # Salva o nome do usuário
+            user.save()
+            return redirect('login')  # Redireciona para a página de login
+    return render(request, 'app_produtos/globals/cadastrarLogin.html')

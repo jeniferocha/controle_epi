@@ -1,6 +1,6 @@
 {% load static %}
 
-<header class="py-3 border-bottom" style="grid-area: header; background: linear-gradient(90deg, rgb(248, 63, 63) 32%, rgb(145, 50, 74) 100%);">
+<header class="py-3 border-bottom" style="grid-area: header; background: linear-gradient(90deg, rgb(248, 63, 63) 32%, rgb(145, 50, 74) 100%)">
   <div class="container-fluid d-flex gap-3 align-items-center">
     <div class="container-fluid ps-4">
       <a class="navbar-brand" href="/">
@@ -10,24 +10,22 @@
 
     <div class="d-flex align-items-center">
       <div class="flex-shrink-0 dropdown">
-        <a
-          href="#"
-          class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          {% if request.session.ultimo_nome %}
-          <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          {% if request.user.is_authenticated %}
+            <label id="usuario-nome" class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>
           {% endif %}
-          <img src="{% static 'img/avatar-do-usuario.png' %}" alt="mdo" width="32" height="32" class="rounded-circle" />
+          <img src="{% static 'img/avatar-do-usuario.png' %}" alt="User avatar" width="32" height="32" class="rounded-circle" />
         </a>
         <ul class="dropdown-menu text-small shadow">
-          <li><a class="dropdown-item" href="#">Configurações</a></li>
-          <li><a class="dropdown-item" href="#">Perfil</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="{% url 'sair' %}">Sair</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+          {% else %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'cadastrar_login' %}">Cadastro</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>
   </div>
 </header>
+
