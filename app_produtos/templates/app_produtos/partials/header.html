@@ -12,7 +12,8 @@
       <div class="flex-shrink-0 dropdown">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           {% if request.user.is_authenticated %}
-            <label id="usuario-nome" class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>
+            <!-- Mostra o último nome armazenado na sessão -->
+            <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>          
           {% endif %}
           <img src="{% static 'img/avatar-do-usuario.png' %}" alt="User avatar" width="32" height="32" class="rounded-circle" />
         </a>
@@ -28,4 +29,3 @@
     </div>
   </div>
 </header>
-

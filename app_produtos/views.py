@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout
-from .models import CadastrarEquipamento, CadastrarColaborador, RegistrarAcao
+from .models import CadastrarEquipamento, CadastrarColaborador, RegistrarAcao, cadastrarLogin
 
 
 def index(request):
@@ -228,19 +228,70 @@ def registrar_acao(request):
         "equipamentos": equipamentos
     })
 
+
+
+def cadastrar_login(request):
+    usuario = {}
+    message_type = None
+    message_content = None
+
+    if request.method == 'POST':           
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if nome and email and username and password:
+            # Verifica se o nome de usuário já existe
+            if User.objects.filter(username=username).exists():
+                message_type = 'error'
+                message_content = 'Nome de usuário já está em uso.'
+            else:
+                # Criação do usuário no sistema de autenticação
+                user = User.objects.create_user(username=username, password=password, email=email)
+                
+                # Cadastro no modelo cadastrarLogin
+                cadastrarLogin.objects.create(nome=nome, email=email, username=username, password=password)
+
+                message_type = 'success'
+                message_content = 'Usuário cadastrado com sucesso!'
+        else:
+            # Mensagem de erro se os campos não forem preenchidos
+            message_type = 'error'
+            message_content = 'Preencha todos os campos obrigatórios.'
+
+    return render(request, 'app_produtos/globals/cadastrarLogin.html', {
+        "usuario": usuario,
+        "message_type": message_type,
+        "message_content": message_content,
+    })
+
+
+
 def login_request(request):
-    message = ""
+    message_type = None
+    message_content = None
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            request.session['ultimo_nome'] = user.last_name  # Armazena o último nome na sessão
+            request.session['ultimo_nome'] = user.username  # Armazena o último nome na sessão          
+            request.session.modified = True  # Garante que a sessão seja salva
+            message_type = 'success'
+            message_content = f"Bem-vindo, {user.username}!"
             return redirect('home')  # Redireciona para a página inicial
         else:
-            message = "Usuário ou senha inválidos"
-    return render(request, 'app_produtos/globals/login.html', {"message": message})
+            message_type = 'error'
+            message_content = "Usuário ou senha inválidos."
+
+    return render(request, 'app_produtos/globals/login.html', {
+        "message_type": message_type,
+        "message_content": message_content,
+    })
+
 
 # View de Logout
 def logout_request(request):
@@ -248,17 +299,4 @@ def logout_request(request):
     request.session.flush()  # Limpa a sessão
     return redirect('login')  # Redireciona para a página de login
 
-# View de Cadastro
-def cadastrar_login(request):
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        if nome and username and email and password:
-            user = User.objects.create_user(username=username, email=email, password=password)
-            user.first_name = nome  # Salva o nome do usuário
-            request.session['ultimo_nome'] = nome
-            user.save()
-            return redirect('login')  # Redireciona para a página de login
-    return render(request, 'app_produtos/globals/cadastrarLogin.html')
+

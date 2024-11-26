@@ -1,26 +1,88 @@
 {% extends "app_produtos/index.html" %}
-{% block title %}Cadastro{% endblock title %}
+
+{% block title %}Cadastrar Usuário{% endblock title %}
 
 {% block content %}
-<h1>Cadastro</h1>
-<form action="{% url 'cadastrar_login' %}" method="post">
+
+<h1>Cadastrar Usuário</h1>
+
+<form class="needs-validation" method="post" novalidate>
     {% csrf_token %}
+  <div class="row g-1" style="gap: 10px; padding-top: 20px;">
+    <div class="col-7">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" id="nome" />
+        <div class="invalid-feedback">Valid name is required.</div>
+    </div>  
+
     <div class="col-sm-7">
-        <label for="nome" class="form-label">Nome:</label>
-        <input type="text" name="nome" id="nome" class="form-control" required>
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" name="email" id="email" class="form-control" required />
+      <div class="invalid-feedback">Valid email is required.</div>
     </div>
-    <div class="col-sm-7">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" name="email" id="email" class="form-control" required>
+    
+    <div class="col-7">
+      <label for="username" class="form-label">Usuário:</label>
+      <input type="text" name="username" id="username" class="form-control" required />
+        <div class="invalid-feedback">Valid username is required.</div>
+    </div>  
+
+    <div class="col-7">
+      <label for="password" class="form-label">Senha:</label>
+      <input type="password" name="password" id="password" class="form-control" required />       
     </div>
-    <div class="col-sm-7">
-        <label for="username" class="form-label">Usuário:</label>
-        <input type="text" name="username" id="username" class="form-control" required>
+
+    <button type="submit" class="w-50 btn btn-primary" style="margin-top: 10px">Cadastrar</button>
+
+    <!-- Modal de Notificação -->
+  <script>
+    // Função para exibir o modal com mensagem de sucesso ou erro
+    function showNotificationModal(success, message) {
+      var modalTitle = document.getElementById('notificationLabel');
+      var modalMessage = document.getElementById('notificationMessage');
+  
+      if (success) {
+        modalTitle.textContent = 'Sucesso!';
+        modalMessage.textContent = message;
+        modalTitle.classList.add('text-success');
+      } else {
+        modalTitle.textContent = 'Erro!';
+        modalMessage.textContent = message;
+        modalTitle.classList.add('text-danger');
+      }
+  
+      // Exibe o modal
+      var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+      notificationModal.show();
+    }
+  </script>
+   
+  
+  <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="notificationLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="notificationMessage">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-7">
-        <label for="password" class="form-label">Senha:</label>
-        <input type="password" name="password" id="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary" style="margin-top: 10px">Cadastrar</button>
+
+    {% if message_type and message_content %}
+    <script>
+      var success = "{{ message_type }}" === "success";
+      var message = "{{ message_content }}";
+      showNotificationModal(success, message);
+    </script>
+    {% endif %}
 </form>
-{% endblock %}
+
+
+
+{% endblock content %}
