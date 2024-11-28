@@ -278,11 +278,10 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            request.session['ultimo_nome'] = user.username  # Armazena o último nome na sessão          
-            request.session.modified = True  # Garante que a sessão seja salva
-            message_type = 'success'
-            message_content = f"Bem-vindo, {user.username}!"
-            return redirect('home')  # Redireciona para a página inicial
+            request.session['ultimo_nome'] = user.username            
+            request.session.modified = True  
+            messages.success(request, f"Bem-vindo, {user.username}!")  
+            return redirect('home')  
         else:
             message_type = 'error'
             message_content = "Usuário ou senha inválidos."
@@ -296,7 +295,7 @@ def login_request(request):
 # View de Logout
 def logout_request(request):
     logout(request)
-    request.session.flush()  # Limpa a sessão
-    return redirect('login')  # Redireciona para a página de login
+    request.session.flush()  
+    return redirect('login')  
 
 

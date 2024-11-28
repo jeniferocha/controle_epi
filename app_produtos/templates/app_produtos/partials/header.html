@@ -13,7 +13,7 @@
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           {% if request.user.is_authenticated %}
             <!-- Mostra o último nome armazenado na sessão -->
-            <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome }}</label>          
+            <label class="fs-6 fw-semibold">{{ request.session.ultimo_nome|capfirst }}</label>          
           {% endif %}
           <img src="{% static 'img/avatar-do-usuario.png' %}" alt="User avatar" width="32" height="32" class="rounded-circle" />
         </a>
