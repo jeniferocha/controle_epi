@@ -95,20 +95,23 @@ def cadastrar_colaborador(request):
         cpf = request.POST.get('cpf')
         cargo = request.POST.get('cargo')
         setor = request.POST.get('setor')
-
-        if nome_colaborador and cpf and cargo and setor:
-            colaborador = {
-                "nome_colaborador": nome_colaborador,
-                "cpf": cpf,
-                "cargo": cargo,
-                "setor": setor
-            }
-            CadastrarColaborador.objects.create(**colaborador)
-            # Mensagem de sucesso
-            message_type = 'success'
-            message_content = 'Colaborador cadastrado com sucesso!'
-        else:
-            # Mensagem de erro se os campos não forem preenchidos
+        
+        if nome_colaborador and cpf and cargo and setor:            
+            if CadastrarColaborador.objects.filter(cpf=cpf).exists():
+                message_type = 'error'
+                message_content = 'CPF já cadastrado. Por favor, use outro CPF.'
+            else:                
+                colaborador = {
+                    "nome_colaborador": nome_colaborador,
+                    "cpf": cpf,
+                    "cargo": cargo,
+                    "setor": setor
+                }
+                CadastrarColaborador.objects.create(**colaborador)
+                                
+                message_type = 'success'
+                message_content = 'Colaborador cadastrado com sucesso!'
+        else:            
             message_type = 'error'
             message_content = 'Colaborador não foi cadastrado. Preencha todos os campos!'        
 
@@ -116,8 +119,8 @@ def cadastrar_colaborador(request):
         "colaborador": colaborador,
         "message_type": message_type,
         "message_content": message_content,
-        
     })
+
 
 
 def listar_colaborador(request):
