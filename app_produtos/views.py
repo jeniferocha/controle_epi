@@ -109,13 +109,25 @@ def cadastrar_colaborador(request):
                 }
                 CadastrarColaborador.objects.create(**colaborador)
                                 
-                message_type = 'success'
-                message_content = 'Colaborador cadastrado com sucesso!'
+                message_type = "success"
+                message_content = "Colaborador cadastrado com sucesso!"
         else:            
-            message_type = 'error'
-            message_content = 'Colaborador não foi cadastrado. Preencha todos os campos!'        
+            if not nome_colaborador:
+                missing_field = "nome_colaborador"
+            elif not cpf:
+                missing_field = "cpf"
+            elif not cargo:
+                missing_field = "cargo"
+            elif not setor:
+                missing_field = "setor"
+            else:
+                missing_field = None
 
-    return render(request, 'app_produtos/globals/cadastrarColaborador.html', {
+            if missing_field:
+                message_type = "error"
+                message_content = f"Colaborador não foi cadastrado. Preencher o campo: {missing_field}"       
+
+    return render(request, "app_produtos/globals/cadastrarColaborador.html", {
         "colaborador": colaborador,
         "message_type": message_type,
         "message_content": message_content,
