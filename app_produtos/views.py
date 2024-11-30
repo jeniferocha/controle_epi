@@ -39,10 +39,17 @@ def cadastrar_equipamento(request):
             # Mensagem de sucesso
             message_type = 'success'
             message_content = 'Equipamento cadastrado com sucesso!'
-        else:
-            # Mensagem de erro se os campos não forem preenchidos
-            message_type = 'error'
-            message_content = 'Equipamento não foi cadastrado. Preencha todos os campos!'
+        else:            
+            if not cod_equipamento:
+                missing_field = "cod_equipamento"
+            elif not nome_equipamento:
+                missing_field = "nome_equipamento"            
+            else:
+                missing_field = None
+
+            if missing_field:
+                message_type = "error"
+                message_content = f"Equipamento não foi cadastrado. Preencher o campo: {missing_field}"
 
     return render(request, 'app_produtos/globals/cadastrarEquipamento.html', {
         "equipamento": equipamento,
