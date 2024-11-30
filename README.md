@@ -24,6 +24,7 @@ O projeto foi desenvolvido durante as aulas de desenvolvimento de sistemas com a
 - Criar e atualizar o banco de dados SQLite:
 "python manage.py makemigrations" e "python manage.py migrate"
 - Instalar o pytest: pip install pytest-django
+- Instalar o selenium: pip install selenium
 - Rodar o projeto: python manage.py runserver
 
 
