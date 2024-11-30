@@ -137,10 +137,11 @@ def cadastrar_colaborador(request):
                 message_content = f"Colaborador não foi cadastrado. Preencher o campo: {missing_field}"       
 
     return render(request, "app_produtos/globals/cadastrarColaborador.html", {
-        "colaborador": colaborador,
-        "message_type": message_type,
-        "message_content": message_content,
-    })
+    "colaborador": colaborador,
+    "message_type": message_type,
+    "message_content": message_content,
+})
+
 
 
 
