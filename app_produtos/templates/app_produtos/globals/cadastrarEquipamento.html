@@ -64,12 +64,15 @@
     </div>
 
     {% if message_type and message_content %}
+  
     <script>
+      
       var success = "{{ message_type }}" === "success";
       var message = "{{ message_content }}";
       showNotificationModal(success, message);
     </script>
-    {% endif %}
+{% endif %}
+
     
 
 </form>

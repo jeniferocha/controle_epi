@@ -41,21 +41,23 @@ def cadastrar_equipamento(request):
             message_content = 'Equipamento cadastrado com sucesso!'
         else:            
             if not cod_equipamento:
-                missing_field = "cod_equipamento"
+                missing_field = "Código do Equipamento"
             elif not nome_equipamento:
-                missing_field = "nome_equipamento"            
+                missing_field = "Nome do Equipamento"            
             else:
                 missing_field = None
 
             if missing_field:
                 message_type = "error"
-                message_content = f"Equipamento não foi cadastrado. Preencher o campo: {missing_field}"
+                message_content = f"Equipamento não foi cadastrado. Preencha o campo: {missing_field}"
 
     return render(request, 'app_produtos/globals/cadastrarEquipamento.html', {
         "equipamento": equipamento,
         "message_type": message_type,
         "message_content": message_content
     })
+
+
 
 def editar_equipamento(request, id):
     equipamento = CadastrarEquipamento.objects.get(id=id)
